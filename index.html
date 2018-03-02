@@ -8,6 +8,7 @@
                 font-family: 'Orbitron';
                 font-size: 20px;
                 font-size: 3vh;
+                background-color: #FFF;
             }
             
             ul li {
@@ -21,9 +22,12 @@
             }
 
             #container {
-                margin: auto;
+                position: absolute;
+                /*margin: auto;
                 width: 50%;;
-                padding: 10px;
+                padding: 10px;*/
+                padding-top: 20px;
+                padding-left: 10px;
             }
 
             footer {
@@ -31,9 +35,16 @@
                 width: 50%;;
                 padding: 10px;
             }
+
+            #background {
+                z-index: -999;
+            }
         </style>
     </head>
     <body>
+        <div id="background">
+
+        </div>
         <div id="container">
             <h1>Adhir Ramjiawan</h1>
 
@@ -43,12 +54,69 @@
                 <li><a href="https://twitter.com/adhirram" target="_blank">Twitter</a></li>
                 <li><a href="https://www.linkedin.com/in/adhir-ramjiawan-06bb9a39" target="_blank">LinkedIn</a></li>
             </ul>
+
+            <div>
+                    <span>
+                        <script>document.write(new Date().getFullYear());</script>
+                    </span>
+                </div>
         </div>
 
-        <footer>
-            <span>
-                <script>document.write(new Date().getFullYear());</script>
-            </span>
-        </footer>
+        
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.0/pixi.min.js"></script>
+        <script type="text/javascript">
+            let type = "WebGL"
+            if(!PIXI.utils.isWebGLSupported()){
+              type = "canvas";
+            }
+        
+            PIXI.utils.sayHello(type);
+
+            var app = new PIXI.Application({ 
+                width: 400,         // default: 800
+                height: 400,        // default: 600
+                antialias: true,    // default: false
+                transparent: false, // default: false
+                resolution: 1       // default: 1
+            });
+
+            document.body.appendChild(app.view);
+
+            app.renderer.backgroundColor = 0xFFFFFF;
+            var count = 0;
+            var angle = 360;
+            var x = 300;
+            var y = 300;
+            var lineAdded = false;
+
+
+            var line = new PIXI.Graphics();
+            line.lineStyle(1, 0xFF00AA, 1);
+            line.moveTo(200, 200);
+            line.lineTo(200, 200);
+            app.stage.addChild(line);
+
+            app.ticker.add(function(delta) {
+                line.clear();
+
+                angle -= 0.0008;
+
+                if (angle < 1) angle = 360;
+
+                var radian = (180 / Math.PI) * angle;
+                var lineX = (x * Math.cos(radian)) - (y * Math.sin(radian));
+                var lineY = (y * Math.cos(radian)) + (x * Math.sin(radian));
+  
+                line.lineStyle(1, 0xFF00AA, 1);
+                line.moveTo(200 - lineX, 200 - lineY);
+                line.lineTo(lineX, lineY);
+            });
+
+            
+
+
+
+          </script>
     </body>
 </html>
